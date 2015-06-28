@@ -11,8 +11,9 @@
 		927704B81B3D071800631755 /* StreamScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927704AD1B3D071800631755 /* StreamScanner.framework */; };
 		927704BD1B3D071800631755 /* StreamScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927704BC1B3D071800631755 /* StreamScannerTests.swift */; };
 		927704C81B3D0AD100631755 /* StreamScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927704C71B3D0AD100631755 /* StreamScanner.swift */; };
-		927704CF1B3D21A400631755 /* test.simple_in in Resources */ = {isa = PBXBuildFile; fileRef = 927704CD1B3D21A400631755 /* test.simple_in */; };
-		927704D01B3D21A400631755 /* test.simple_out in Resources */ = {isa = PBXBuildFile; fileRef = 927704CE1B3D21A400631755 /* test.simple_out */; };
+		92EF7A6D1B40A063007CEEA1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AD6AA31B40622A0038DAF6 /* main.swift */; };
+		92EF7A6F1B40A096007CEEA1 /* StreamScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927704AD1B3D071800631755 /* StreamScanner.framework */; };
+		92FE591E1B405D6A008E467F /* samples in Resources */ = {isa = PBXBuildFile; fileRef = 92FE591D1B405D6A008E467F /* samples */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,6 +23,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 927704AC1B3D071800631755;
 			remoteInfo = StandardInputScanner;
+		};
+		92EF7A6B1B40A058007CEEA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 927704A41B3D071800631755 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 927704AC1B3D071800631755;
+			remoteInfo = StreamScanner;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -33,8 +41,10 @@
 		927704BC1B3D071800631755 /* StreamScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamScannerTests.swift; sourceTree = "<group>"; };
 		927704BE1B3D071800631755 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		927704C71B3D0AD100631755 /* StreamScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamScanner.swift; sourceTree = "<group>"; };
-		927704CD1B3D21A400631755 /* test.simple_in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.simple_in; sourceTree = "<group>"; };
-		927704CE1B3D21A400631755 /* test.simple_out */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.simple_out; sourceTree = "<group>"; };
+		92AD6AA31B40622A0038DAF6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		92EF7A5E1B409FC1007CEEA1 /* StreamScannerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreamScannerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92EF7A671B409FC1007CEEA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92FE591D1B405D6A008E467F /* samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = samples; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +63,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		92EF7A5B1B409FC1007CEEA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92EF7A6F1B40A096007CEEA1 /* StreamScanner.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -61,6 +79,7 @@
 			children = (
 				927704AF1B3D071800631755 /* StreamScanner */,
 				927704BB1B3D071800631755 /* StreamScannerTests */,
+				92EF7A5F1B409FC1007CEEA1 /* StreamScannerTest */,
 				927704AE1B3D071800631755 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +89,7 @@
 			children = (
 				927704AD1B3D071800631755 /* StreamScanner.framework */,
 				927704B71B3D071800631755 /* StreamScannerTests.xctest */,
+				92EF7A5E1B409FC1007CEEA1 /* StreamScannerTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,10 +109,18 @@
 			children = (
 				927704BE1B3D071800631755 /* Info.plist */,
 				927704BC1B3D071800631755 /* StreamScannerTests.swift */,
-				927704CD1B3D21A400631755 /* test.simple_in */,
-				927704CE1B3D21A400631755 /* test.simple_out */,
+				92FE591D1B405D6A008E467F /* samples */,
 			);
 			path = StreamScannerTests;
+			sourceTree = "<group>";
+		};
+		92EF7A5F1B409FC1007CEEA1 /* StreamScannerTest */ = {
+			isa = PBXGroup;
+			children = (
+				92AD6AA31B40622A0038DAF6 /* main.swift */,
+				92EF7A671B409FC1007CEEA1 /* Info.plist */,
+			);
+			path = StreamScannerTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +173,23 @@
 			productReference = 927704B71B3D071800631755 /* StreamScannerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		92EF7A5D1B409FC1007CEEA1 /* StreamScannerTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92EF7A681B409FC1007CEEA1 /* Build configuration list for PBXNativeTarget "StreamScannerTest" */;
+			buildPhases = (
+				92EF7A5A1B409FC1007CEEA1 /* Sources */,
+				92EF7A5B1B409FC1007CEEA1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92EF7A6C1B40A058007CEEA1 /* PBXTargetDependency */,
+			);
+			name = StreamScannerTest;
+			productName = StreamScannerTest;
+			productReference = 92EF7A5E1B409FC1007CEEA1 /* StreamScannerTest.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -161,6 +206,9 @@
 					927704B61B3D071800631755 = {
 						CreatedOnToolsVersion = 7.0;
 					};
+					92EF7A5D1B409FC1007CEEA1 = {
+						CreatedOnToolsVersion = 7.0;
+					};
 				};
 			};
 			buildConfigurationList = 927704A71B3D071800631755 /* Build configuration list for PBXProject "StreamScanner" */;
@@ -169,6 +217,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 927704A31B3D071800631755;
 			productRefGroup = 927704AE1B3D071800631755 /* Products */;
@@ -177,6 +226,7 @@
 			targets = (
 				927704AC1B3D071800631755 /* StreamScanner */,
 				927704B61B3D071800631755 /* StreamScannerTests */,
+				92EF7A5D1B409FC1007CEEA1 /* StreamScannerTest */,
 			);
 		};
 /* End PBXProject section */
@@ -193,8 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				927704D01B3D21A400631755 /* test.simple_out in Resources */,
-				927704CF1B3D21A400631755 /* test.simple_in in Resources */,
+				92FE591E1B405D6A008E467F /* samples in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +266,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		92EF7A5A1B409FC1007CEEA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92EF7A6D1B40A063007CEEA1 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -224,6 +281,11 @@
 			isa = PBXTargetDependency;
 			target = 927704AC1B3D071800631755 /* StreamScanner */;
 			targetProxy = 927704B91B3D071800631755 /* PBXContainerItemProxy */;
+		};
+		92EF7A6C1B40A058007CEEA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 927704AC1B3D071800631755 /* StreamScanner */;
+			targetProxy = 92EF7A6B1B40A058007CEEA1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -373,6 +435,32 @@
 			};
 			name = Release;
 		};
+		92EF7A691B409FC1007CEEA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = StreamScannerTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = in.shoumikh.StreamScannerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		92EF7A6A1B409FC1007CEEA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = StreamScannerTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = in.shoumikh.StreamScannerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -402,6 +490,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		92EF7A681B409FC1007CEEA1 /* Build configuration list for PBXNativeTarget "StreamScannerTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92EF7A691B409FC1007CEEA1 /* Debug */,
+				92EF7A6A1B409FC1007CEEA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

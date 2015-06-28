@@ -5,45 +5,49 @@
 
 import Foundation
 
-//==============================================================================
 public class StreamScanner
 {
-    static let standard = StreamScanner(source: NSFileHandle.fileHandleWithStandardInput())
+    public static let standardInput = StreamScanner(source: NSFileHandle.fileHandleWithStandardInput())
     private let source: NSFileHandle
     private let delimiters: NSCharacterSet
     private var buffer: NSScanner?
 
-    public init(source: NSFileHandle,
-            delimiters: NSCharacterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    public init(source: NSFileHandle, delimiters: NSCharacterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet())
     {
         self.source = source
         self.delimiters = delimiters
     }
 
-    public func next<T>() -> T?
+    public func read<T>() -> T?
     {
         if buffer == nil || buffer!.atEnd
         {
-            if let nextInput = NSString(data: source.availableData,
-                                    encoding: NSUTF8StringEncoding)
+            //init or append the buffer
+            if let nextInput = NSString(data: source.availableData, encoding: NSUTF8StringEncoding)
             {
                 buffer = NSScanner(string: nextInput as String)
             }
         }
 
-        var token: NSString?
-
-        buffer?.scanUpToCharactersFromSet(delimiters, intoString: &token)
-
-        if token != nil
+        if buffer != nil
         {
-            return scan(token as! String)
+            var token: NSString?
+
+            //grab the next valid characters into token
+            if buffer!.scanUpToCharactersFromSet(delimiters, intoString: &token) && token != nil
+            {
+                //skip delimiters for the next invocation
+                buffer!.scanCharactersFromSet(delimiters, intoString: nil)
+
+                //convert the token into an instance of type T and return it
+                return convert(token as! String)
+            }
         }
 
         return nil
     }
 
-    private func scan<T>(token: String) -> T?
+    private func convert<T>(token: String) -> T?
     {
         let scanner = NSScanner(string: token)
         var ret: T? = nil
@@ -99,14 +103,3 @@ public class StreamScanner
         return ret
     }
 }
-//------------------------------------------------------------------------------
-infix operator >>> { associativity left }
-public func >>><T>(lhs: StreamScanner, inout rhs: T?) -> StreamScanner
-{
-    rhs = lhs.next()
-
-    return lhs
-}
-//==============================================================================
-public let cin = StreamScanner.standard
-//==============================================================================
