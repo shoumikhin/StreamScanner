@@ -27,7 +27,7 @@ For convenience you can declare:
 ```swift
 let stdin = StreamScanner.standardInput
 ```
-and use `stdin` later on.
+and use `stdin` later on. Spaces and new lines considered delimiters by default.
 
 #### Read some arbitrary values of different type from a standard input
 
