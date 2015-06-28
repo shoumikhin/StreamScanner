@@ -6,7 +6,7 @@ Originally appeared as a necessity to parse standard input for competitive progr
 
 #### For competitive programming
 
-Copy-paste the contents of [StreamScanner.swift](StreamScanner/StreamScanner.swift) to your solution file, read the [usage](#Usage) section below and enjoy.
+Copy-paste the contents of [StreamScanner.swift](StreamScanner/StreamScanner.swift) to your solution file, read the [usage](#usage) section below and enjoy.
 
 #### As a framework
 
@@ -27,7 +27,9 @@ For convenience you can declare:
 ```swift
 let stdin = StreamScanner.standardInput
 ```
-and use `stdin` later on. Spaces and new lines considered delimiters by default.
+and use `stdin` later on.
+
+Spaces and new lines considered delimiters by default: customize with constructor.
 
 #### Read some arbitrary values of different type from a standard input
 
