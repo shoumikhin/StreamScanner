@@ -1,5 +1,6 @@
 # Input Stream Scanner
-A simple scanner for any kind of input file streams with arbitrary delimiters. Made with Swift, based on `NSScanner`.<br/>
+A simple scanner for any kind of input file streams with arbitrary delimiters. Made with Swift, based on `NSScanner`. 
+
 Originally appeared as a necessity to parse the standard input for competitive programming challenges on [HackerRank](https://www.hackerrank.com/).<br>
 
 ## Installation
