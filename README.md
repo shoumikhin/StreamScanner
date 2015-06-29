@@ -167,3 +167,8 @@ GID:  	1
 Home: 	/var/root
 Shell:	/usr/bin/false
 ```
+## License
+
+This toy is free and open.
+
+[<img src="https://cloud.githubusercontent.com/assets/426434/8402001/9565ec3c-1deb-11e5-95a2-7d3ecdf08334.png" alt="Creative Commons" />](http://creativecommons.org)
