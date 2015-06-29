@@ -1,6 +1,6 @@
-# StreamScanner
-A simple scanner for any kind of file streams with arbitrary delimiters in Swift.<br/>
-Originally appeared as a necessity to parse standard input for competitive programming challenges on [HackerRank](https://www.hackerrank.com/).<br>
+# Input Stream Scanner
+A simple scanner for any kind of input file streams with arbitrary delimiters. Made with Swift, based on `NSScanner`.<br/>
+Originally appeared as a necessity to parse the standard input for competitive programming challenges on [HackerRank](https://www.hackerrank.com/).<br>
 
 ## Installation
 
@@ -29,14 +29,36 @@ let stdin = StreamScanner.standardInput
 ```
 and use `stdin` later on.
 
-Spaces and new lines considered delimiters by default: customize with constructor like:
+Spaces and new lines considered delimiters by default.
+
+Customize with constructor like:
 
 ```swift
-let input = StreamScanner(source: NSFileHandle(forReadingAtPath: "/path/to/file"),
-                          delimiters: NSCharacterSet(charactersInString: "-.:\n"))
+let stream = StreamScanner(source: NSFileHandle(forReadingAtPath: "/path/to/file"),
+                           delimiters: NSCharacterSet(charactersInString: "-.:\n"))
 ```
 
-#### Read some arbitrary values of different type from a standard input
+Call `read()` to get the next value from a stream. It returns `Optional<T>` where `T` is a type of a variable where to `read()` the stream.
+
+Imagine there's a file at `/path/to/file` with the following contents:
+
+```
+42.times show:not_a_double
+```
+
+And here's one of the ways to scan it with the `stream` declared above:
+
+```swift
+var number: Int? = stream.read()        //parse an integer at the current position in the stream, if possible
+var string: String? = stream.read()     //now skip a delimiting dot and parse a string
+var double: Double? = stream.read()     //now skip a delimiting colon and try to parse a double
+
+print("\(number) \(string) \(double)")  //Optional(42) Optional("times show") nil
+```
+
+## More Examples
+
+#### Read some arbitrary values of different type from the standard input
 
 ```swift
 if
@@ -60,7 +82,7 @@ if
 42 st_ring! -0.987654321 12345678900 0.42
 ```
 
-#### Read an array of `Int64` of a particular size
+#### Read an array of `Int64` of an arbitrary size from the standard input
 
 ```swift
 if var count: Int = stdin.read()
@@ -99,7 +121,7 @@ if let input = NSFileHandle(forReadingAtPath: "/etc/passwd")
 
     while let line: String = scanner.read()
     {
-        //skip comments
+        //skip any comments
         if !line.hasPrefix("#")
         {
             let username = line
