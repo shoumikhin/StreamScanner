@@ -29,7 +29,12 @@ let stdin = StreamScanner.standardInput
 ```
 and use `stdin` later on.
 
-Spaces and new lines considered delimiters by default: customize with constructor.
+Spaces and new lines considered delimiters by default: customize with constructor like:
+
+```swift
+let input = StreamScanner(source: NSFileHandle(forReadingAtPath: "/path/to/file"),
+                          delimiters: NSCharacterSet(charactersInString: "-.:\n"))
+```
 
 #### Read some arbitrary values of different type from a standard input
 
