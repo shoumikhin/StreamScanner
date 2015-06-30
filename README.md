@@ -7,7 +7,9 @@ Originally appeared as a necessity to parse the standard input for competitive p
 
 #### For competitive programming
 
-Copy-paste the contents of [StreamScanner.swift](StreamScanner/StreamScanner.swift) to your solution file, read the [usage](#usage) section below and enjoy.
+Copy-paste the contents of this [tiny sample](https://github.com/shoumikhin/sample/blob/master/ACC.swift) and enjoy. 
+
+For more complicated use cases check out the full version of [StreamScanner.swift](StreamScanner/StreamScanner.swift). See the [usage](#usage) and [examples](#more-examples) sections below.
 
 #### As a framework
 
