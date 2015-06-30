@@ -5,6 +5,16 @@
 
 import Foundation
 
+public protocol Scannable {}
+
+extension String: Scannable {}
+extension Int: Scannable {}
+extension Int32: Scannable {}
+extension Int64: Scannable {}
+extension UInt64: Scannable {}
+extension Float: Scannable {}
+extension Double: Scannable {}
+
 public class StreamScanner
 {
     public static let standardInput = StreamScanner(source: NSFileHandle.fileHandleWithStandardInput())
@@ -18,7 +28,7 @@ public class StreamScanner
         self.delimiters = delimiters
     }
 
-    public func read<T>() -> T?
+    public func read<T: Scannable>() -> T?
     {
         if buffer == nil || buffer!.atEnd
         {
@@ -47,19 +57,16 @@ public class StreamScanner
         return nil
     }
 
-    private func convert<T>(token: String) -> T?
+    private func convert<T: Scannable>(token: String) -> T?
     {
-        let scanner = NSScanner(string: token)
         var ret: T? = nil
+
+        if ret is String? { return token as? T }
+
+        let scanner = NSScanner(string: token)
 
         switch ret
         {
-        case is String? :
-            var value: NSString? = ""
-            if scanner.scanString(token, intoString: &value)
-            {
-                ret = value as? T
-            }
         case is Int? :
             var value: Int = 0
             if scanner.scanInteger(&value)
