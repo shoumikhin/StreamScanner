@@ -15,7 +15,7 @@ extension UInt64: Scannable {}
 extension Float: Scannable {}
 extension Double: Scannable {}
 
-public class StreamScanner
+public class StreamScanner : GeneratorType, SequenceType
 {
     public static let standardInput = StreamScanner(source: NSFileHandle.fileHandleWithStandardInput())
     private let source: NSFileHandle
@@ -28,18 +28,36 @@ public class StreamScanner
         self.delimiters = delimiters
     }
 
-    public func read<T: Scannable>() -> T?
+    public func next() -> String?
+    {
+        return read()
+    }
+
+    public func generate() -> Self
+    {
+        return self
+    }
+
+    public func ready() -> Bool
     {
         if buffer == nil || buffer!.atEnd
-        {
-            //init or append the buffer
-            if let nextInput = NSString(data: source.availableData, encoding: NSUTF8StringEncoding)
+        {   //init or append the buffer
+            let availableData = source.availableData
+
+            if
+                availableData.length > 0,
+                let nextInput = NSString(data: availableData, encoding: NSUTF8StringEncoding)
             {
                 buffer = NSScanner(string: nextInput as String)
             }
         }
 
-        if buffer != nil
+        return buffer != nil && !buffer!.atEnd
+    }
+
+    public func read<T: Scannable>() -> T?
+    {
+        if ready()
         {
             var token: NSString?
 

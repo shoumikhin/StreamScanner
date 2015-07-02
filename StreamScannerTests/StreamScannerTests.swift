@@ -11,16 +11,18 @@ class StreamScannerTests: XCTestCase
     let bundle = NSBundle(forClass: StreamScannerTests.self)
     let filename = "samples/test"
 
-    func testSimple()
+    func testTypes()
     {
+        let test = "types"
+
         if
-            let inputFilename = bundle.pathForResource(filename, ofType: "simple_in"),
-            let outputFilename = bundle.pathForResource(filename, ofType: "simple_out")
+            let inputFilename = bundle.pathForResource(filename, ofType: test+"_in"),
+            let outputFilename = bundle.pathForResource(filename, ofType: test+"_out")
         {
             if
                 let input = NSFileHandle(forReadingAtPath: inputFilename),
                 let output = NSFileHandle(forReadingAtPath: outputFilename),
-                let reference = NSString(data: output.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
+                let expected = NSString(data: output.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
             {
                 let scanner = StreamScanner(source: input)
 
@@ -31,9 +33,9 @@ class StreamScannerTests: XCTestCase
                     let int64: Int64 = scanner.read(),
                     let float: Float = scanner.read()
                 {
-                    let result = "\(int) \(string) \(double) \(int64) \(float)"
+                    let actual = "\(int) \(string) \(double) \(int64) \(float)"
 
-                    XCTAssertEqual(result, reference)
+                    XCTAssertEqual(actual, expected)
 
                     return
                 }
@@ -45,14 +47,16 @@ class StreamScannerTests: XCTestCase
 
     func testDelimiters()
     {
+        let test = "delimiters"
+
         if
-            let inputFilename = bundle.pathForResource(filename, ofType: "delimiters_in"),
-            let outputFilename = bundle.pathForResource(filename, ofType: "delimiters_out")
+            let inputFilename = bundle.pathForResource(filename, ofType: test+"_in"),
+            let outputFilename = bundle.pathForResource(filename, ofType: test+"_out")
         {
             if
                 let input = NSFileHandle(forReadingAtPath: inputFilename),
                 let output = NSFileHandle(forReadingAtPath: outputFilename),
-                let reference = NSString(data: output.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
+                let expected = NSString(data: output.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
             {
                 let scanner = StreamScanner(source: input, delimiters: NSCharacterSet(charactersInString: ":\n"))
 
@@ -64,15 +68,56 @@ class StreamScannerTests: XCTestCase
                     let double2: Double = scanner.read(),
                     let int2: Int64 = scanner.read()
                 {
-                    let result = "\(string) \(double) \(int) \(string2) \(double2) \(int2)"
+                    let actual = "\(string) \(double) \(int) \(string2) \(double2) \(int2)"
 
-                    XCTAssertEqual(result, reference)
+                    XCTAssertEqual(actual, expected)
 
                     return
                 }
             }
         }
 
+        XCTFail()
+    }
+
+    func testGenerator()
+    {
+        let test = "generator"
+
+        if
+            let inputFilename = bundle.pathForResource(filename, ofType: test+"_in"),
+            let outputFilename = bundle.pathForResource(filename, ofType: test+"_out")
+        {
+            if
+                let input = NSFileHandle(forReadingAtPath: inputFilename),
+                let output = NSFileHandle(forReadingAtPath: outputFilename),
+                let expected = NSString(data: output.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
+            {
+                var delimiters = NSMutableCharacterSet.whitespaceAndNewlineCharacterSet()
+
+                delimiters.formUnionWithCharacterSet(NSCharacterSet(charactersInString: ","))
+
+                let scanner = StreamScanner(source: input, delimiters: delimiters)
+                var names: [String] = []
+
+                for name in scanner
+                {
+                    names.append(name)
+                }
+
+                if !scanner.ready()  //if we really finished reading all the names from a file in the above for-in loop
+                {
+                    names.sort() { $0 < $1 }
+
+                    var actual = ", ".join(names)
+
+                    XCTAssertEqual(actual, expected)
+                    
+                    return
+                }
+            }
+        }
+        
         XCTFail()
     }
 }
