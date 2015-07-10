@@ -7,9 +7,7 @@ Originally appeared as a necessity to parse the standard input for competitive p
 
 #### For competitive programming
 
-Copy-paste the contents of this [tiny sample](https://github.com/shoumikhin/sample/blob/master/ACC.swift) and enjoy. 
-
-For more general use cases check out the full version of [StreamScanner.swift](StreamScanner/StreamScanner.swift). See the [usage](#usage) and [examples](#more-examples) sections below.
+Copy-paste the contents of this [tiny sample](https://github.com/shoumikhin/sample/blob/master/ACC.swift) and enjoy.  For more general use cases check out the full version of [StreamScanner.swift](StreamScanner/StreamScanner.swift) and see the [usage](#usage) and [examples](#more-examples) sections below.
 
 #### As a framework
 
@@ -51,7 +49,7 @@ Imagine there's a file at `/path/to/file` with the following contents:
 42.times show:not_a_double
 ```
 
-And here's one of the ways to scan it with the `stream` declared above:
+And here's one of the ways to scan it with the `stream` just declared above:
 
 ```swift
 var number: Int?    = stream.read() //parse an integer at the current position in the stream
