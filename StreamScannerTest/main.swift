@@ -36,6 +36,12 @@ if var count: Int = stdin.read()
     print(array)
 }
 
+//read strings from the stream in a for loop
+for name in stdin
+{
+    print("Hello, \(name)!")
+}
+
 //read and present the contents of /etc/passwd file
 if let input = NSFileHandle(forReadingAtPath: "/etc/passwd")
 {
