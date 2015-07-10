@@ -39,7 +39,9 @@ let stream = StreamScanner(source: NSFileHandle(forReadingAtPath: "/path/to/file
                            delimiters: NSCharacterSet(charactersInString: "-.:\n"))
 ```
 
-Now call `read()` to get the next value from a stream. It returns `Optional<T>` where `T` is a type of a variable where you want to `read()` the stream.
+Now call `read() -> Optional<T>` to get the next value from a stream, where `T` is a type of a variable where you want to `read()` the stream.
+
+You may call `ready() -> Bool` to check whether the stream currently contains any data it can parse. *Note: the stream may try to grab some data from its source during this check.*
 
 ## Example
 
