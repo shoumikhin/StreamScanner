@@ -65,11 +65,11 @@ print("\(number) \(string) \(double)")  //Optional(42) Optional("times show") ni
 
 ```swift
 if
-    let int:    Int = stdin.read(),
-    let string: String = stdin.read(),
-    let double: Double = stdin.read(),
-    let int64:  Int64 = stdin.read(),
-    let float:  Float = stdin.read()
+    let int:    Int     = stdin.read(),
+    let string: String  = stdin.read(),
+    let double: Double  = stdin.read(),
+    let int64:  Int64   = stdin.read(),
+    let float:  Float   = stdin.read()
 {
     print("\(int) \(string) \(double) \(int64) \(float)")
 }
@@ -123,9 +123,7 @@ for name in stdin
 ```
 *Input:*
 ```
-Chris
-Ally
-Joshua
+Chris Ally Joshua
 ```
 *Output:*
 ```
@@ -151,12 +149,12 @@ if let input = NSFileHandle(forReadingAtPath: "/etc/passwd")
             let username = line
 
             if
-                let valid: String = scanner.read(),
-                let userId: Int = scanner.read(),
-                let groupId: Int = scanner.read(),
-                let gecos: String = scanner.read(),
-                let home: String = scanner.read(),
-                let shell: String = scanner.read()
+                let valid:    String  = scanner.read(),
+                let userId:   Int     = scanner.read(),
+                let groupId:  Int     = scanner.read(),
+                let gecos:    String  = scanner.read(),
+                let home:     String  = scanner.read(),
+                let shell:    String  = scanner.read()
             {
                 print("------------------------------")
                 print("User: \t\(username) (\(gecos))")
