@@ -1,5 +1,5 @@
 # Input Stream Scanner
-A simple scanner for any kind of input file streams with arbitrary delimiters. Made with Swift, based on `NSScanner`. 
+A simple scanner for any kind of file input streams with arbitrary delimiters. Made with Swift, based on `NSScanner`. 
 
 Originally appeared as a necessity to parse the standard input for competitive programming challenges on [HackerRank](https://www.hackerrank.com/).<br>
 
@@ -9,7 +9,7 @@ Originally appeared as a necessity to parse the standard input for competitive p
 
 Copy-paste the contents of this [tiny sample](https://github.com/shoumikhin/sample/blob/master/ACC.swift) and enjoy. 
 
-For more complicated use cases check out the full version of [StreamScanner.swift](StreamScanner/StreamScanner.swift). See the [usage](#usage) and [examples](#more-examples) sections below.
+For more general use cases check out the full version of [StreamScanner.swift](StreamScanner/StreamScanner.swift). See the [usage](#usage) and [examples](#more-examples) sections below.
 
 #### As a framework
 
@@ -30,18 +30,18 @@ For convenience you can declare:
 ```swift
 let stdin = StreamScanner.standardInput
 ```
-and use `stdin` later on.
+and use `stdin` later on. *Spaces and new lines are considered delimiters by default.*
 
-Spaces and new lines considered delimiters by default.
-
-Customize with constructor like:
+Or make your custom stream with:
 
 ```swift
 let stream = StreamScanner(source: NSFileHandle(forReadingAtPath: "/path/to/file"),
                            delimiters: NSCharacterSet(charactersInString: "-.:\n"))
 ```
 
-Call `read()` to get the next value from a stream. It returns `Optional<T>` where `T` is a type of a variable where to `read()` the stream.
+Now call `read()` to get the next value from a stream. It returns `Optional<T>` where `T` is a type of a variable where you want to `read()` the stream.
+
+## Example
 
 Imagine there's a file at `/path/to/file` with the following contents:
 
@@ -52,24 +52,24 @@ Imagine there's a file at `/path/to/file` with the following contents:
 And here's one of the ways to scan it with the `stream` declared above:
 
 ```swift
-var number: Int? = stream.read()        //parse an integer at the current position in the stream, if possible
-var string: String? = stream.read()     //now skip a delimiting dot and parse a string
-var double: Double? = stream.read()     //now skip a delimiting colon and try to parse a double
+var number: Int?    = stream.read() //parse an integer at the current position in the stream
+var string: String? = stream.read() //now skip a delimiting dot and parse a string
+var double: Double? = stream.read() //now skip a delimiting colon and try to parse a double
 
 print("\(number) \(string) \(double)")  //Optional(42) Optional("times show") nil
 ```
 
 ## More Examples
 
-#### Read some arbitrary values of different type from the standard input
+#### Read some arbitrary values of different types from the standard input
 
 ```swift
 if
-    let int: Int = stdin.read(),
+    let int:    Int = stdin.read(),
     let string: String = stdin.read(),
     let double: Double = stdin.read(),
-    let int64: Int64 = stdin.read(),
-    let float: Float = stdin.read()
+    let int64:  Int64 = stdin.read(),
+    let float:  Float = stdin.read()
 {
     print("\(int) \(string) \(double) \(int64) \(float)")
 }
@@ -111,6 +111,27 @@ if var count: Int = stdin.read()
 *Output:*
 ```
 [1234567890123456789, 987654321098765432]
+```
+
+#### Read some strings from the stream in a for loop until it's empty
+
+```swift
+for name in stdin
+{
+    print("Hello, \(name)!")
+}
+```
+*Input:*
+```
+Chris
+Ally
+Joshua
+```
+*Output:*
+```
+Hello, Chris!
+Hello, Ally!
+Hello, Joshua!
 ```
 
 #### Read and present the contents of [`/etc/passwd`](https://en.wikipedia.org/wiki/Passwd) file
