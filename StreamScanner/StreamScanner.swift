@@ -78,44 +78,47 @@ public class StreamScanner : GeneratorType, SequenceType
     private func convert<T: Scannable>(token: String) -> T?
     {
         var ret: T? = nil
-
-        if ret is String? { return token as? T }
-
+        if T.self as? String.Type != nil {
+            return token as? T
+        }
+        
+        //        if ret is String? { return token as? T }
+        
         let scanner = NSScanner(string: token)
-
-        switch ret
+        
+        switch T.self//ret
         {
-        case is Int? :
+        case is Int.Type :
             var value: Int = 0
             if scanner.scanInteger(&value)
             {
                 ret = value as? T
             }
-        case is Int32? :
+        case is Int32.Type :
             var value: Int32 = 0
             if scanner.scanInt(&value)
             {
                 ret = value as? T
             }
-        case is Int64? :
+        case is Int64.Type :
             var value: Int64 = 0
             if scanner.scanLongLong(&value)
             {
                 ret = value as? T
             }
-        case is UInt64? :
+        case is UInt64.Type :
             var value: UInt64 = 0
             if scanner.scanUnsignedLongLong(&value)
             {
                 ret = value as? T
             }
-        case is Float? :
+        case is Float.Type :
             var value: Float = 0
             if scanner.scanFloat(&value)
             {
                 ret = value as? T
             }
-        case is Double? :
+        case is Double.Type :
             var value: Double = 0
             if scanner.scanDouble(&value)
             {
@@ -124,7 +127,7 @@ public class StreamScanner : GeneratorType, SequenceType
         default :
             ret = nil
         }
-
+        
         return ret
     }
 }
