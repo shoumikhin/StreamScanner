@@ -33,8 +33,8 @@ and use `stdin` later on. *Spaces and new lines are considered delimiters by def
 Or make your custom stream with:
 
 ```swift
-let stream = StreamScanner(source: NSFileHandle(forReadingAtPath: "/path/to/file"),
-                           delimiters: NSCharacterSet(charactersInString: "-.:\n"))
+let stream = StreamScanner(source: FileHandle(forReadingAtPath: "/path/to/file"),
+                           delimiters: CharacterSet(charactersIn: "-.:\n"))
 ```
 
 Now call `read() -> Optional<T>` to get the next value from a stream, where `T` is a type of a variable where you want to `read()` the stream.
@@ -92,7 +92,7 @@ if var count: Int = stdin.read()
 {
     var array: [Int64] = []
 
-    while Bool(count--)
+    for _ in 0..<count
     {
         if let integer: Int64 = stdin.read()
         {
@@ -135,9 +135,9 @@ Hello, Joshua!
 #### Read and present the contents of [`/etc/passwd`](https://en.wikipedia.org/wiki/Passwd) file
 
 ```swift
-if let input = NSFileHandle(forReadingAtPath: "/etc/passwd")
+if let input = FileHandle(forReadingAtPath: "/etc/passwd")
 {
-    let scanner = StreamScanner(source: input, delimiters: NSCharacterSet(charactersInString: ":\n"))
+    let scanner = StreamScanner(source: input, delimiters: CharacterSet(charactersIn: ":\n"))
 
     print("User Database:")
 
