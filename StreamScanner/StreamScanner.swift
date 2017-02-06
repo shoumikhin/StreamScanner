@@ -15,116 +15,94 @@ extension UInt64: Scannable {}
 extension Float: Scannable {}
 extension Double: Scannable {}
 
-public class StreamScanner : GeneratorType, SequenceType
-{
-    public static let standardInput = StreamScanner(source: NSFileHandle.fileHandleWithStandardInput())
-    private let source: NSFileHandle
-    private let delimiters: NSCharacterSet
-    private var buffer: NSScanner?
+public final class StreamScanner : IteratorProtocol, Sequence {
 
-    public init(source: NSFileHandle, delimiters: NSCharacterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet())
-    {
-        self.source = source
-        self.delimiters = delimiters
+  public static let standardInput = StreamScanner(source: FileHandle.standardInput)
+
+  public init(source: FileHandle, delimiters: CharacterSet = CharacterSet.whitespacesAndNewlines) {
+    self.source = source
+    self.delimiters = delimiters
+  }
+
+  public func next() -> String? {
+    return read()
+  }
+
+  public func makeIterator() -> Self {
+    return self
+  }
+
+  public func ready() -> Bool {
+    if buffer?.isAtEnd ?? true {
+      // Init or append the buffer.
+      let availableData = source.availableData
+      if availableData.count > 0,
+          let nextInput = String(data: availableData, encoding: .utf8) {
+        buffer = Scanner(string: nextInput)
+      }
     }
+    return !(buffer?.isAtEnd ?? true)
+  }
 
-    public func next() -> String?
-    {
-        return read()
+  public func read<T: Scannable>() -> T? {
+    if ready() {
+      var token: NSString?
+      // Grab the next valid characters into token.
+      if buffer?.scanUpToCharacters(from: delimiters, into: &token) ?? false,
+          let token = token as? String {
+        // Skip delimiters for the next invocation.
+        buffer?.scanCharacters(from: delimiters, into: nil)
+        // Convert the token into an instance of type T and return it.
+        return convert(token)
+      }
     }
+    return nil
+  }
 
-    public func generate() -> Self
-    {
-        return self
+  // MARK: - Private
+
+  fileprivate let source: FileHandle
+  fileprivate let delimiters: CharacterSet
+  fileprivate var buffer: Scanner?
+
+  fileprivate func convert<T: Scannable>(_ token: String) -> T? {
+    let scanner = Scanner(string: token)
+    switch T.self {
+    case is String.Type:
+      return token as? T
+    case is Int.Type:
+      var value: Int = 0
+      if scanner.scanInt(&value) {
+        return value as? T
+      }
+    case is Int32.Type:
+      var value: Int32 = 0
+      if scanner.scanInt32(&value) {
+        return value as? T
+      }
+    case is Int64.Type:
+      var value: Int64 = 0
+      if scanner.scanInt64(&value) {
+        return value as? T
+      }
+    case is UInt64.Type:
+      var value: UInt64 = 0
+      if scanner.scanUnsignedLongLong(&value) {
+        return value as? T
+      }
+    case is Float.Type:
+      var value: Float = 0
+      if scanner.scanFloat(&value) {
+        return value as? T
+      }
+    case is Double.Type:
+      var value: Double = 0
+      if scanner.scanDouble(&value) {
+        return value as? T
+      }
+    default:
+      break
     }
-
-    public func ready() -> Bool
-    {
-        if buffer == nil || buffer!.atEnd
-        {   //init or append the buffer
-            let availableData = source.availableData
-
-            if
-                availableData.length > 0,
-                let nextInput = NSString(data: availableData, encoding: NSUTF8StringEncoding)
-            {
-                buffer = NSScanner(string: nextInput as String)
-            }
-        }
-
-        return buffer != nil && !buffer!.atEnd
-    }
-
-    public func read<T: Scannable>() -> T?
-    {
-        if ready()
-        {
-            var token: NSString?
-
-            //grab the next valid characters into token
-            if buffer!.scanUpToCharactersFromSet(delimiters, intoString: &token) && token != nil
-            {
-                //skip delimiters for the next invocation
-                buffer!.scanCharactersFromSet(delimiters, intoString: nil)
-
-                //convert the token into an instance of type T and return it
-                return convert(token as! String)
-            }
-        }
-
-        return nil
-    }
-
-    private func convert<T: Scannable>(token: String) -> T?
-    {
-        var ret: T? = nil
-
-        if ret is String? { return token as? T }
-
-        let scanner = NSScanner(string: token)
-
-        switch ret
-        {
-        case is Int? :
-            var value: Int = 0
-            if scanner.scanInteger(&value)
-            {
-                ret = value as? T
-            }
-        case is Int32? :
-            var value: Int32 = 0
-            if scanner.scanInt(&value)
-            {
-                ret = value as? T
-            }
-        case is Int64? :
-            var value: Int64 = 0
-            if scanner.scanLongLong(&value)
-            {
-                ret = value as? T
-            }
-        case is UInt64? :
-            var value: UInt64 = 0
-            if scanner.scanUnsignedLongLong(&value)
-            {
-                ret = value as? T
-            }
-        case is Float? :
-            var value: Float = 0
-            if scanner.scanFloat(&value)
-            {
-                ret = value as? T
-            }
-        case is Double? :
-            var value: Double = 0
-            if scanner.scanDouble(&value)
-            {
-                ret = value as? T
-            }
-        default :
-            ret = nil
-        }
-
-        return ret
-    }
+    return nil
+  }
 }
