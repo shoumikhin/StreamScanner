@@ -28,7 +28,7 @@ public final class StreamScanner : IteratorProtocol, Sequence {
     return read()
   }
 
-  public func makeIterator() -> Self {
+  public func makeIterator() -> StreamScanner.Iterator {
     return self
   }
 
@@ -49,7 +49,7 @@ public final class StreamScanner : IteratorProtocol, Sequence {
       var token: NSString?
       // Grab the next valid characters into token.
       if buffer?.scanUpToCharacters(from: delimiters, into: &token) ?? false,
-          let token = token as? String {
+          let token = token as String? {
         // Skip delimiters for the next invocation.
         buffer?.scanCharacters(from: delimiters, into: nil)
         // Convert the token into an instance of type T and return it.
